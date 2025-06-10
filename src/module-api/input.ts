@@ -1,4 +1,41 @@
-export type InputValue = number | string | boolean | Array<string | number>
+export type CompanionOAuthConfig = {
+	/**
+	 * The OAuth client ID to use with the service.  (This value is technically
+	 * public but, for an individual user's use, ought generally be kept
+	 * secret.)
+	 */
+	clientId: string
+
+	/**
+	 * An opaque string used to acquire authentication codes and that is used to
+	 * exchange those codes for access tokens.
+	 *
+	 * This secret, combined with the semi-public client ID, is functionally
+	 * equivalent to a password: you can use it to acquire access tokens that
+	 * let you do anything within the scopes the authorization server
+	 * recognizes.
+	 */
+	clientSecret: string
+
+	/**
+	 * An opaque string used to access the OAuth-gated service.
+	 *
+	 * This value permits doing anything enabled by the scopes requested when
+	 * acquiring the authentication code initially used to get this token.
+	 */
+	accessToken: string
+
+	/**
+	 * An opaque string that can be exchanged (with client ID and secret) at its
+	 * OAuth token endpoint for a new access token.
+	 *
+	 * This value is sensitive, but it can only be used if one possesses the
+	 * related client ID and secret, so it's not as secret as the access token.
+	 */
+	refreshToken: string
+}
+
+export type InputValue = number | string | boolean | Array<string | number> | CompanionOAuthConfig
 
 export interface CompanionOptionValues {
 	[key: string]: InputValue | undefined
@@ -21,6 +58,7 @@ export interface CompanionInputFieldBase {
 		| 'checkbox'
 		| 'custom-variable'
 		| 'bonjour-device'
+		| 'oauth'
 	/** The label of the field */
 	label: string
 	/** A hover tooltip for this field */
@@ -382,4 +420,54 @@ export interface CompanionInputFieldCustomVariable extends CompanionInputFieldBa
  */
 export interface CompanionInputFieldBonjourDevice extends CompanionInputFieldBase {
 	type: 'bonjour-device'
+}
+
+/**
+ * Information defining an OAuth-controlled resource and the scope(s) of the
+ * access request, subject to the requirements defined in RFC 6749.
+ */
+export interface CompanionOAuthResource {
+	/**
+	 * The OAuth authorization endpoint URL.  This must be an absolute URL, must
+	 * be HTTPS, and must not contain a hash component.
+	 */
+	authorizeEndpoint: string
+
+	/**
+	 * The OAuth token endpoint URL.  This must be an absolute URL, must be
+	 * HTTPS, and must not contain a hash component.
+	 */
+	tokenEndpoint: string
+
+	/**
+	 * A list of distinct OAuth scopes of authorization requested.
+	 *
+	 * XXX maybe require that the scopes be pre-sorted?
+	 */
+	scopes: [string, ...string[]]
+
+	/**
+	 * The presumed duration of validity of access tokens, when the token server
+	 * hasn't indicated a validity duration directly.
+	 */
+	defaultAccessTokenExpiresInSeconds?: number
+}
+
+/**
+ * An input field to acquire OAuth2 access and refresh tokens to access a
+ * resource.  (Only the access token is exposed to the module.)
+ *
+ * Available for config
+ *
+ * ### Example
+ * ```js
+ * {
+ * 	id: 'my-service',
+ * 	type: 'oauth2-client',
+ * 	label: 'Web Service'
+ * }
+ * ```
+ */
+export interface CompanionInputFieldOAuthClient extends CompanionInputFieldBase, CompanionOAuthResource {
+	type: 'oauth'
 }

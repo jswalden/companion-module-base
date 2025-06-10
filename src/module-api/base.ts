@@ -49,6 +49,7 @@ import {
 	SharedUdpSocketMessageCallback,
 	SharedUdpSocketOptions,
 } from './shared-udp-socket.js'
+import { CompanionOAuthConfig } from './input.js'
 
 export interface InstanceBaseOptions {
 	/**
@@ -170,6 +171,13 @@ export abstract class InstanceBase<TConfig> implements InstanceBaseShared<TConfi
 				for (const field of fields) {
 					if ('default' in field) {
 						newConfig[field.id] = field.default
+					} else if (field.type === 'oauth') {
+						newConfig[field.id] = {
+							clientId: '',
+							clientSecret: '',
+							accessToken: '',
+							refreshToken: '',
+						} satisfies CompanionOAuthConfig
 					}
 				}
 				this.#lastConfig = newConfig as TConfig
