@@ -32,6 +32,8 @@ export interface ModuleHostContext<TConfig, TSecrets> {
 	setPresetDefinitions: (structure: CompanionPresetSection[], presets: CompanionPresetDefinitions) => void
 	/** The connection has some new values for variables */
 	setVariableValues: (values: HostVariableValue[]) => void
+	/** The connection wants to update variables either partially or completely */
+	updateVariableValues: (values: HostUpdateVariableValue[]) => void
 	/** The connection has some new values for feedbacks it is running */
 	updateFeedbackValues: (values: HostFeedbackValue[]) => void
 	/** The connection has updated its config, which should be persisted */
@@ -84,6 +86,12 @@ export interface HostVariableDefinition {
 }
 export interface HostVariableValue {
 	id: string
+	value: JsonValue | undefined
+}
+
+export interface HostUpdateVariableValue {
+	id: string
+	path: string
 	value: JsonValue | undefined
 }
 

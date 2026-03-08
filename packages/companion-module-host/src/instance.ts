@@ -10,6 +10,7 @@ import type {
 	InstanceConstructor,
 	InstanceTypes,
 	CompanionPresetDefinitions,
+	JsonValue,
 } from '@companion-module/base'
 import PQueue from 'p-queue'
 import { ActionManager } from './internal/actions.js'
@@ -27,6 +28,7 @@ import type {
 import type { InstanceContext, SharedUdpSocketMessage } from '@companion-module/base/host-api'
 import { runThroughUpgradeScripts } from './internal/upgrade.js'
 import { validatePresetDefinitions } from './internal/presets.js'
+import { Pointer } from 'packages/companion-module-base/src/pointer.js'
 
 export class InstanceWrapper<TManifest extends InstanceTypes> {
 	// readonly #logger = createModuleLogger('InstanceWrapper')
@@ -166,6 +168,58 @@ export class InstanceWrapper<TManifest extends InstanceTypes> {
 				const hostValues: HostVariableValue[] = []
 
 				for (const [variableId, value] of Object.entries(values)) {
+					if (this.#instance.instanceOptions.disableVariableValidation) {
+						// update the cached value
+						if (value === undefined) {
+							this.#variableValues.delete(variableId)
+						} else {
+							this.#variableValues.set(variableId, value)
+						}
+
+						hostValues.push({
+							id: variableId,
+							value: value,
+						})
+					} else if (this.#variableDefinitions.has(variableId)) {
+						// update the cached value
+						this.#variableValues.set(variableId, value ?? '')
+
+						hostValues.push({
+							id: variableId,
+							value: value ?? '',
+						})
+					} else {
+						// tell companion to delete the value
+						hostValues.push({
+							id: variableId,
+							value: undefined,
+						})
+					}
+				}
+
+				this.#host.setVariableValues(hostValues)
+			},
+			updateVariableValues: (values) => {
+				const hostValues: HostVariableValue[] = []
+
+				for (const [variableId, { pointer, partial }] of Object.entries(values)) {
+					pointer = pointer as Pointer
+					partial = partial as JsonValue | undefined
+
+
+					if (this.#variableDefinitions.has(variableId)) {
+						if (partial !== undefined) {
+
+						}
+					}
+
+
+					if (pointer.length === 0) {
+
+					} else {
+
+					}
+
 					if (this.#instance.instanceOptions.disableVariableValidation) {
 						// update the cached value
 						if (value === undefined) {

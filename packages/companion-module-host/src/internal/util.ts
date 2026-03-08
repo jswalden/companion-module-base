@@ -23,3 +23,18 @@ export function hasAnyOldRequiredProperties(
 
 	return false
 }
+
+const SpecialChars = /~\//g
+
+export function translateToJsonPointer(pointer: readonly (string | number)[]): readonly (string | number)[] {
+	const components = Object.entries(pointer);
+
+	for (const [i, component] of Object.entries(pointer)) {
+		if (typeof component !== 'string' || !SpecialChars.test(component)) {
+			continue;
+		}
+
+
+	}
+	return pointer
+}

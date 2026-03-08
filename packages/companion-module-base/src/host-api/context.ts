@@ -14,6 +14,7 @@ import type {
 	CompanionRecordedAction,
 	CompanionStaticUpgradeScript,
 	CompanionVariableDefinitions,
+	CompanionVariableUpdate,
 	InstanceStatus,
 	InstanceTypes,
 } from '../module-api/index.js'
@@ -55,7 +56,10 @@ export interface InstanceContext<TManifest extends InstanceTypes> extends Instan
 	) => void
 
 	setVariableDefinitions: (variables: CompanionVariableDefinitions<TManifest['variables']>) => void
+
 	setVariableValues: (values: Partial<TManifest['variables']>) => void
+	updateVariableValues: (values: CompanionVariableUpdate<TManifest['variables']>) => void
+
 	getVariableValue: <T extends string>(variableId: T) => TManifest['variables'][T] | undefined
 }
 

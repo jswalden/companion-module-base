@@ -4,7 +4,7 @@ import type { CompanionPresetSection, CompanionPresetDefinitions } from './prese
 import type { InstanceStatus } from './enums.js'
 import { createModuleLogger, type LogLevel, type ModuleLogger } from '../logging.js'
 import { assertNever } from '../util.js'
-import type { CompanionVariableDefinitions, CompanionVariableValues } from './variable.js'
+import type { CompanionVariableDefinitions, CompanionVariableValues, CompanionVariableUpdate } from './variable.js'
 import type { OSCSomeArguments } from '../common/osc.js'
 import type { SomeCompanionConfigField } from './config.js'
 import type { CompanionHTTPRequest, CompanionHTTPResponse } from './http.js'
@@ -192,6 +192,14 @@ export abstract class InstanceBase<TManifest extends InstanceTypes = InstanceTyp
 	 */
 	setVariableValues(values: Partial<TManifest['variables']>): void {
 		this.#context.setVariableValues(values)
+	}
+
+	/**
+	 * Update the values of some variables
+	 * @param updates
+	 */
+	updateVariableValues(updates: CompanionVariableUpdate<TManifest['variables']>): void {
+		this.#context.updateVariableValues(updates)
 	}
 
 	/**
