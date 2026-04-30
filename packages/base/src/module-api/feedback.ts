@@ -1,17 +1,17 @@
 import type { JsonValue } from '../common/json-value.js'
+import type { StringKeys } from '../util.js'
 import type { CompanionCommonCallbackContext, CompanionLearnCallbackContext } from './common.js'
 import type {
-	CompanionOptionValues,
-	CompanionInputFieldStaticText,
 	CompanionInputFieldCheckbox,
 	CompanionInputFieldColor,
 	CompanionInputFieldDropdown,
 	CompanionInputFieldMultiDropdown,
 	CompanionInputFieldNumber,
+	CompanionInputFieldStaticText,
 	CompanionInputFieldTextInput,
+	CompanionOptionValues,
 } from './input.js'
 import type { CompanionButtonStyleProps } from './style.js'
-import type { StringKeys } from '../util.js'
 
 export type SomeCompanionFeedbackInputField<TKey extends string = string> =
 	| CompanionInputFieldStaticText<TKey>

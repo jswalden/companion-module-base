@@ -1,8 +1,8 @@
 import type {
+	ModuleBonjourQuery,
 	ModuleManifest,
 	ModuleManifestMaintainer,
 	ModuleManifestRuntime,
-	ModuleBonjourQuery,
 } from '../generated/manifest.d.ts'
 // @ts-expect-error no typings
 // eslint-disable-next-line n/no-missing-import

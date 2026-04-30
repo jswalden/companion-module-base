@@ -1,7 +1,4 @@
-import { describe, it, expect, beforeEach, vi, beforeAll } from 'vitest'
-import { runAllTimers } from '../../../../base/src/__mocks__/util.js'
-import { FeedbackManager } from '../feedback.js'
-import type { FeedbackInstance, HostFeedbackDefinition, HostFeedbackValue } from '../../context.js'
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import type {
 	CompanionAdvancedFeedbackDefinition,
 	CompanionBooleanFeedbackDefinition,
@@ -9,6 +6,9 @@ import type {
 	CompanionFeedbackDefinitionBase,
 	CompanionOptionValues,
 } from '@companion-module/base'
+import { runAllTimers } from '../../../../base/src/__mocks__/util.js'
+import type { FeedbackInstance, HostFeedbackDefinition, HostFeedbackValue } from '../../context.js'
+import { FeedbackManager } from '../feedback.js'
 
 const mockDefinitionId = 'definition0'
 const mockDefinitionId2 = 'definition1'

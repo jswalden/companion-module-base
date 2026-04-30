@@ -1,17 +1,17 @@
+import type { StringKeys } from '../util.js'
 import type { CompanionCommonCallbackContext, CompanionLearnCallbackContext } from './common.js'
 import type {
-	CompanionOptionValues,
 	CompanionInputFieldCheckbox,
 	CompanionInputFieldColor,
+	CompanionInputFieldCustomVariable,
 	CompanionInputFieldDropdown,
 	CompanionInputFieldMultiDropdown,
 	CompanionInputFieldNumber,
 	CompanionInputFieldStaticText,
 	CompanionInputFieldTextInput,
-	CompanionInputFieldCustomVariable,
+	CompanionOptionValues,
 } from './input.js'
 import type { CompanionVariableValue } from './variable.js'
-import type { StringKeys } from '../util.js'
 
 export type SomeCompanionActionInputField<TKey extends string = string> =
 	| CompanionInputFieldStaticText<TKey>

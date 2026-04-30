@@ -1,20 +1,18 @@
+import PQueue from 'p-queue'
 import type {
 	CompanionHTTPRequest,
 	CompanionHTTPResponse,
 	CompanionOptionValues,
+	CompanionPresetDefinitions,
 	CompanionStaticUpgradeScript,
 	CompanionVariableDefinition,
 	CompanionVariableValue,
-	SomeCompanionConfigField,
 	InstanceBase,
 	InstanceConstructor,
 	InstanceTypes,
-	CompanionPresetDefinitions,
+	SomeCompanionConfigField,
 } from '@companion-module/base'
-import { BANNED_PROPS } from './internal/util.js'
-import PQueue from 'p-queue'
-import { ActionManager } from './internal/actions.js'
-import { FeedbackManager } from './internal/feedback.js'
+import type { InstanceContext, SharedUdpSocketMessage } from '@companion-module/base/host-api'
 import type {
 	ActionInstance,
 	FeedbackInstance,
@@ -25,9 +23,11 @@ import type {
 	UpgradeActionInstance,
 	UpgradeFeedbackInstance,
 } from './context.js'
-import type { InstanceContext, SharedUdpSocketMessage } from '@companion-module/base/host-api'
-import { runThroughUpgradeScripts } from './internal/upgrade.js'
+import { ActionManager } from './internal/actions.js'
+import { FeedbackManager } from './internal/feedback.js'
 import { validatePresetDefinitions } from './internal/presets.js'
+import { runThroughUpgradeScripts } from './internal/upgrade.js'
+import { BANNED_PROPS } from './internal/util.js'
 
 export class InstanceWrapper<TManifest extends InstanceTypes> {
 	// readonly #logger = createModuleLogger('InstanceWrapper')

@@ -1,4 +1,7 @@
+import debounceFn from 'debounce-fn'
 import {
+	assertNever,
+	createModuleLogger,
 	type CompanionAdvancedFeedbackResult,
 	type CompanionFeedbackContext,
 	type CompanionFeedbackDefinition,
@@ -7,13 +10,9 @@ import {
 	type CompanionFeedbackLearnContext,
 	type CompanionOptionValues,
 	type JsonValue,
-	assertNever,
-	createModuleLogger,
 } from '@companion-module/base'
-import { BANNED_PROPS } from './util.js'
-import debounceFn from 'debounce-fn'
 import type { FeedbackInstance, HostFeedbackDefinition, HostFeedbackValue } from '../context.js'
-import { hasAnyOldIsVisibleFunctions, hasAnyOldRequiredProperties } from './util.js'
+import { BANNED_PROPS, hasAnyOldIsVisibleFunctions, hasAnyOldRequiredProperties } from './util.js'
 
 function convertFeedbackInstanceToEvent(
 	type: 'boolean' | 'value' | 'advanced',

@@ -6,6 +6,7 @@
  */
 
 import type { RemoteInfo } from 'dgram'
+import type { OSCSomeArguments } from '../common/osc.js'
 import type {
 	CompanionActionDefinitions,
 	CompanionFeedbackDefinitions,
@@ -17,7 +18,6 @@ import type {
 	InstanceStatus,
 	InstanceTypes,
 } from '../module-api/index.js'
-import type { OSCSomeArguments } from '../common/osc.js'
 import type { SharedUdpSocketImpl } from '../module-api/shared-udp-socket.js'
 import type { StringKeys } from '../util.js'
 

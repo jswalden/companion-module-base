@@ -3,9 +3,9 @@ import {
 	type CompanionPresetDefinitions,
 	type CompanionPresetSection,
 } from '@companion-module/base'
-import { BANNED_PROPS } from './util.js'
 import type { ActionManager } from './actions.js'
 import type { FeedbackManager } from './feedback.js'
+import { BANNED_PROPS } from './util.js'
 
 const logger = createModuleLogger('PresetDefinitionsManager')
 

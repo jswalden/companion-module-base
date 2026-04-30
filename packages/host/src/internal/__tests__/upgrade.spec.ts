@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi, type Mock } from 'vitest'
+import { beforeEach, describe, expect, it, vi, type Mock } from 'vitest'
 import {
 	literal,
 	type CompanionMigrationAction,
@@ -8,8 +8,8 @@ import {
 	type CompanionStaticUpgradeScript,
 	type JsonObject,
 } from '@companion-module/base'
-import { runThroughUpgradeScripts } from '../upgrade.js'
 import type { UpgradeActionInstance, UpgradeFeedbackInstance } from '../../context.js'
+import { runThroughUpgradeScripts } from '../upgrade.js'
 
 type MockUpgradeScript<TConfig extends JsonObject, TSecrets extends JsonObject> = Mock<
 	CompanionStaticUpgradeScript<TConfig, TSecrets>

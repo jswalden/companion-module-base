@@ -1,4 +1,5 @@
 import {
+	createModuleLogger,
 	type CompanionActionContext,
 	type CompanionActionDefinition,
 	type CompanionActionDefinitions,
@@ -6,12 +7,10 @@ import {
 	type CompanionActionLearnContext,
 	type CompanionOptionValues,
 	type CompanionVariableValue,
-	createModuleLogger,
 } from '@companion-module/base'
-import { BANNED_PROPS } from './util.js'
 import type { ActionInstance, HostActionDefinition } from '../context.js'
 import type { ExecuteActionResult } from '../instance.js'
-import { hasAnyOldIsVisibleFunctions, hasAnyOldRequiredProperties } from './util.js'
+import { BANNED_PROPS, hasAnyOldIsVisibleFunctions, hasAnyOldRequiredProperties } from './util.js'
 
 function convertActionInstanceToEvent(action: ActionInstance): CompanionActionInfo {
 	return {
