@@ -7,7 +7,7 @@ export * from './feedback.js'
 export * from './http.js'
 export * from './input.js'
 export * from './preset/main.js'
-export {
+export type {
 	SharedUdpSocket,
 	SharedUdpSocketEvents,
 	SharedUdpSocketMessageCallback,

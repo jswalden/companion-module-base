@@ -13,7 +13,7 @@ import type {
 	SomeCompanionFeedbackInputField,
 	ExpressionOrValue,
 } from '@companion-module/base'
-import {
+import type {
 	SharedUdpSocketMessageJoin,
 	SharedUdpSocketMessageLeave,
 	SharedUdpSocketMessageSend,

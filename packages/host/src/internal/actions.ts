@@ -10,7 +10,7 @@ import {
 } from '@companion-module/base'
 import { BANNED_PROPS } from './util.js'
 import type { ActionInstance, HostActionDefinition } from '../context.js'
-import { ExecuteActionResult } from '../instance.js'
+import type { ExecuteActionResult } from '../instance.js'
 import { hasAnyOldIsVisibleFunctions, hasAnyOldRequiredProperties } from './util.js'
 
 function convertActionInstanceToEvent(action: ActionInstance): CompanionActionInfo {

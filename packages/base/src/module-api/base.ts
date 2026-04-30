@@ -9,10 +9,10 @@ import type { OSCSomeArguments } from '../common/osc.js'
 import type { SomeCompanionConfigField } from './config.js'
 import type { CompanionHTTPRequest, CompanionHTTPResponse } from './http.js'
 import {
-	SharedUdpSocket,
 	SharedUdpSocketImpl,
-	SharedUdpSocketMessageCallback,
-	SharedUdpSocketOptions,
+	type SharedUdpSocket,
+	type SharedUdpSocketMessageCallback,
+	type SharedUdpSocketOptions,
 } from './shared-udp-socket.js'
 import { type InstanceContext, isInstanceContext } from '../host-api/context.js'
 import type { JsonObject } from '../common/json-value.js'

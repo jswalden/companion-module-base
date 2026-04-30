@@ -1,12 +1,12 @@
-import { describe, it, expect, beforeEach, vi, Mock } from 'vitest'
+import { describe, it, expect, beforeEach, vi, type Mock } from 'vitest'
 import {
 	literal,
-	CompanionMigrationAction,
-	CompanionMigrationFeedback,
-	CompanionStaticUpgradeProps,
-	CompanionStaticUpgradeResult,
-	CompanionStaticUpgradeScript,
-	JsonObject,
+	type CompanionMigrationAction,
+	type CompanionMigrationFeedback,
+	type CompanionStaticUpgradeProps,
+	type CompanionStaticUpgradeResult,
+	type CompanionStaticUpgradeScript,
+	type JsonObject,
 } from '@companion-module/base'
 import { runThroughUpgradeScripts } from '../upgrade.js'
 import type { UpgradeActionInstance, UpgradeFeedbackInstance } from '../../context.js'
