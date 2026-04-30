@@ -36,8 +36,8 @@ export class InstanceWrapper<TManifest extends InstanceTypes> {
 	#initialized = false
 	#recordingActions = false
 
-	#lastConfig: TManifest['config'] = {} as any
-	#lastSecrets: TManifest['secrets'] = {} as any
+	#lastConfig: TManifest['config'] = {}
+	#lastSecrets: TManifest['secrets'] = {}
 
 	readonly #variableDefinitions = new Map<string, CompanionVariableDefinition>()
 
