@@ -1,6 +1,5 @@
-import type { CompanionPresetOptionValues } from '../main.js'
 import type { CompanionCompositeElementSchemas } from './graphics-composite.js'
-import type { ExpressionOrValue } from './input.js'
+import type { ExpressionOptionsObject, ExpressionOrValue } from './input.js'
 
 /**
  * The type of a button graphics element as stored in places where it can be edited
@@ -74,7 +73,7 @@ export type ButtonGraphicsCompositeElement<
 			/**
 			 * Custom elements have options defined by their composite definition
 			 */
-			options: CompanionPresetOptionValues<Extract<TCompositeElements, CompanionCompositeElementSchemas>[K]['options']>
+			options: ExpressionOptionsObject<Extract<TCompositeElements, CompanionCompositeElementSchemas>[K]['options']>
 		}
 	}[keyof Extract<TCompositeElements, CompanionCompositeElementSchemas>]
 
