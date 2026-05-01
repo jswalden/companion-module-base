@@ -34,7 +34,6 @@
 		"CHANGELOG.md",
 		"dist",
 		"generated",
-		"assets",
 		"lib"
 	],
 	"dependencies": {

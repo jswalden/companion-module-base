@@ -13,6 +13,7 @@ db
 /bundle-*.zip
 .vscode
 
+assets
 docs
 dist
 generated
