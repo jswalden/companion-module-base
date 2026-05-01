@@ -205,7 +205,9 @@ export interface CompanionAdvancedFeedbackDefinition<
 	 * Companion will use this to setup a more accurate list of style overrides,
 	 * which will help users by avoiding a wall of unnecessary overrides
 	 */
-	affectedProperties: Array<keyof CompanionButtonStyleProps> | undefined
+	affectedProperties:
+		| Array<'text' | 'size' | 'color' | 'bgcolor' | 'alignment' | 'pngalignment' | 'png64' | 'imageBuffer'>
+		| undefined
 
 	/** Called to get the feedback value */
 	callback: (
