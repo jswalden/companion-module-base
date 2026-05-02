@@ -44,9 +44,9 @@ export interface CompanionActionContext extends CompanionCommonCallbackContext {
 export type CompanionActionLearnContext = CompanionLearnCallbackContext
 
 /**
- * The definition of an action
+ * The base definition of an action, which is augmented by the WithSubscribeHooks and WithoutSubscribeHooks definitions
  */
-export interface CompanionActionDefinition<TOptions extends CompanionOptionValues = CompanionOptionValues> {
+export interface CompanionActionDefinitionBase<TOptions extends CompanionOptionValues = CompanionOptionValues> {
 	/** Name to show in the actions list */
 	name: string
 	/**
@@ -59,30 +59,8 @@ export interface CompanionActionDefinition<TOptions extends CompanionOptionValue
 	/** The input fields for the action */
 	options: SomeCompanionActionInputField<StringKeys<TOptions>>[]
 
-	/**
-	 * Only monitor the specified options for re-running the subscribe/unsubscribe callbacks
-	 * It is recommended to set this for all actions using subscribe, to reduce unnecessary calls when the user has the values driven by expressions.
-	 * If not set, all options changes will trigger unsubscribe/subscribe
-	 */
-	optionsToMonitorForSubscribe?: StringKeys<TOptions>[]
-
-	/**
-	 * If true, the unsubscribe callback will not be called when the options change, only when the action is removed or disabled
-	 */
-	skipUnsubscribeOnOptionsChange?: boolean
-
 	/** Called to execute the action */
 	callback: (action: CompanionActionEvent<TOptions>, context: CompanionActionContext) => Promise<void> | void
-	/**
-	 * Called to report the existence of an action
-	 * Useful to ensure necessary data is loaded
-	 */
-	subscribe?: (action: CompanionActionInfo<TOptions>, context: CompanionActionContext) => Promise<void> | void
-	/**
-	 * Called to report an action has been edited/removed
-	 * Useful to cleanup subscriptions setup in subscribe
-	 */
-	unsubscribe?: (action: CompanionActionInfo<TOptions>, context: CompanionActionContext) => Promise<void> | void
 
 	/**
 	 * The user requested to 'learn' the values for this action.
@@ -100,6 +78,51 @@ export interface CompanionActionDefinition<TOptions extends CompanionOptionValue
 	 */
 	learnTimeout?: number
 }
+
+/**
+ * Variant where at least subscribe is present,
+ * while optionsToMonitorForSubscribe becomes required and
+ * skipUnsubscribeOnOptionsChange remains optional.
+ */
+export type CompanionActionDefinitionSubscribeHooks<TOptions extends CompanionOptionValues = CompanionOptionValues> = {
+	/**
+	 * Only monitor the specified options for re-running the subscribe/unsubscribe callbacks
+	 * It is recommended to set this for all actions using subscribe, to reduce unnecessary calls when the user has the values driven by expressions.
+	 * If not set, all options changes will trigger unsubscribe/subscribe
+	 */
+	optionsToMonitorForSubscribe: StringKeys<TOptions>[]
+
+	/**
+	 * If true, the unsubscribe callback will not be called when the options change, only when the action is removed or disabled
+	 */
+	skipUnsubscribeOnOptionsChange?: boolean
+
+	/**
+	 * Called to report the existence of an action
+	 * Useful to ensure necessary data is loaded
+	 */
+	subscribe: (action: CompanionActionInfo<TOptions>, context: CompanionActionContext) => Promise<void> | void
+	/**
+	 * Called to report an action has been edited/removed
+	 * Useful to cleanup subscriptions setup in subscribe
+	 */
+	unsubscribe?: (action: CompanionActionInfo<TOptions>, context: CompanionActionContext) => Promise<void> | void
+}
+
+/**
+ * Variant where neither subscribe nor unsubscribe is present.
+ * optionsToMonitorForSubscribe and skipUnsubscribeOnOptionsChange must also be absent.
+ */
+export type CompanionActionDefinitionNoSubscribeHooks = {
+	[K in keyof CompanionActionDefinitionSubscribeHooks<CompanionOptionValues>]?: never
+}
+
+/**
+ * The complete definition of an action
+ */
+export type CompanionActionDefinition<TOptions extends CompanionOptionValues = CompanionOptionValues> =
+	CompanionActionDefinitionBase<TOptions> &
+		(CompanionActionDefinitionSubscribeHooks<TOptions> | CompanionActionDefinitionNoSubscribeHooks)
 
 /**
  * The definitions of a group of actions
